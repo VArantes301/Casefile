@@ -146,6 +146,12 @@ button.ghost:hover:not(:disabled){border-color:var(--amber);color:var(--amber);}
   white-space:pre-line;font-size:.85rem;line-height:1.6;opacity:.9;
 }
 
+.banner.alert{border-color:var(--rust-bright);color:var(--rust-bright);padding:10px;font-size:.85rem;letter-spacing:.06em;}
+
+.result.event{border-left-color:var(--paper-dim);}
+.event-text{white-space:pre-line;font-style:italic;color:var(--paper-dim);line-height:1.7;}
+.nights{margin-top:6px;font-size:.75rem;color:var(--paper-dim);}
+
 .postgame-actions{display:flex;justify-content:center;margin-bottom:18px;}
 
 .hidden{display:none !important;}

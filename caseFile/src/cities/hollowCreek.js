@@ -60,6 +60,51 @@ const hollowCreek = {
 
     excludedFromCrimeScene: ['Old Mill'],
 
+    events: [
+        {
+            id: 'fortuneTeller',
+            trigger: { action: 'investigate', location: 'The Lantern Motel', day: 1 },
+            replacesDescription: true,
+            text: `
+                You weren't planning on staying in the lobby, but a woman by the vending machine
+                catches your sleeve before you can walk past.
+
+                She has a deck of cards fanned in one hand and the tired smile of someone
+                who has said this a hundred times.
+
+                "Sit. One card. It's on the house."
+
+                You're not the type. You sit anyway.
+
+                She flips it over and doesn't even look at it. She looks at you.
+
+                "You came here for a girl. Young. She's gone now, and she's the only reason you're in this town."
+
+                Your cigarette stops halfway to your mouth.
+
+                "Don't ask how," she adds. "The cards don't answer questions. They just tell you who's already gone."
+
+                You leave a few bills on the table. Not because you believe her.
+                You just don't like how quiet the lobby got.
+            `
+        },
+        {
+            id: 'stateOfEmergency',
+            trigger: { deaths: 5 },
+            title: 'State of emergency',
+            banner: 'STATE OF EMERGENCY — the police are now investigating.',
+            text: `
+                On the morning of the fifth body, the police finally stop pretending.
+
+                A state of emergency is declared in Hollow Creek. Roadblocks go up on the county road,
+                deputies start knocking on doors, and the phones at the station don't stop ringing.
+
+                They're investigating now.
+                You'd say it's about time, if it weren't five bodies too late.
+            `
+        }
+    ],
+
     locations: {
         "Railroad Station": {
             description: `

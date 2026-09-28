@@ -1,5 +1,3 @@
-// Escapa texto vindo de entrada do jogador (ex: nome do protagonista) antes de
-// inseri-lo no innerHTML, evitando que HTML/script arbitrário seja injetado.
 function escapeHtml(str) {
   const div = document.createElement('div');
   div.textContent = str == null ? '' : String(str);
@@ -45,6 +43,14 @@ function renderIntro(app) {
     state.screen = 'game';
     render();
   };
+}
+
+function eventBanners() {
+  const c = state.case;
+  return (c.events || [])
+    .filter(e => e.banner)
+    .map(e => `<div class="banner alert">${escapeHtml(e.banner)}</div>`)
+    .join('');
 }
 
 function statusBanner() {
@@ -97,6 +103,7 @@ function renderGame(app) {
         <span>Status <b>${c.status}</b></span>
       </div>
     </div>
+    ${eventBanners()}
     ${statusBanner()}
     ${postGameActions(c)}
     <div class="layout">
@@ -228,24 +235,25 @@ function renderHistoryEntry(entry) {
         <span class="tag">${escapeHtml(data.suspect.name)} ${escapeHtml(data.suspect.lastname)} — ${escapeHtml(data.suspect.occupation)}</span>
         "${escapeHtml(a.whatHappened)}"<br><br>
         ${a.murderLocationGuess ? `<b>Where it happened:</b> ${escapeHtml(a.murderLocationGuess)}<br>` : ''}
-        ${a.witnessSeen ? `<b>Seen near the victim:</b> ${escapeHtml(a.witnessSeen)}<br>` : ''}
+        ${a.witnessSeen ? `<b>Last one with the victim:</b> ${escapeHtml(a.witnessSeen)}<br>` : ''}
         ${a.suspicion ? `<b>Who they suspect:</b> ${escapeHtml(a.suspicion)}` : ''}
       </div>
     `;
   } else if (type === 'talk') {
     inner = `
       <div class="result">
-        <span class="tag">${escapeHtml(data.suspect.name)} ${escapeHtml(data.suspect.lastname)}</span>
+        <span class="tag">${escapeHtml(data.suspect.name)} ${escapeHtml(data.suspect.lastname)}${data.opened ? ' — speaks openly' : ''}</span>
         "${escapeHtml(data.line)}"
       </div>
     `;
   } else if (type === 'stay') {
     inner = `
-      <div class="result ${data.staySafe ? '' : 'bad'}">
-        <span class="tag">${data.staySafe ? 'Quiet night' : 'Someone died'}</span>
-        ${data.staySafe
-          ? 'Nothing happened tonight.'
-          : `${escapeHtml(data.deceased.name)} ${escapeHtml(data.deceased.lastname)} was found dead this morning at ${escapeHtml(data.deceased.location)}.`}
+      <div class="result">
+        <span class="tag">Night with ${escapeHtml(data.suspect.name)} ${escapeHtml(data.suspect.lastname)}</span>
+        ${data.overnight
+          ? 'You spent the night here. It did not end quietly.'
+          : 'You spent the night here. A quiet one.'}
+        <div class="nights">Nights together: ${data.nightsSpent}</div>
       </div>
     `;
   }
@@ -254,8 +262,31 @@ function renderHistoryEntry(entry) {
     <div class="history-entry">
       <span class="history-meta">Day ${day} — ${escapeHtml(actionLabel(type))}</span>
       ${inner}
+      ${renderEvents(data)}
+      ${renderOvernight(data)}
     </div>
   `;
+}
+
+function renderOvernight(data) {
+  if (!data.overnight) return '';
+  const d = data.overnight;
+  return `
+    <div class="result bad">
+      <span class="tag">Overnight</span>
+      ${escapeHtml(d.name)} ${escapeHtml(d.lastname)} was found dead this morning at ${escapeHtml(d.location)}.
+    </div>
+  `;
+}
+
+function renderEvents(data) {
+  if (!data.events || !data.events.length) return '';
+  return data.events.map(ev => `
+    <div class="result event">
+      ${ev.title ? `<span class="tag">${escapeHtml(ev.title)}</span>` : ''}
+      <div class="event-text">${escapeHtml(ev.text).trim()}</div>
+    </div>
+  `).join('');
 }
 
 function renderActionError() {

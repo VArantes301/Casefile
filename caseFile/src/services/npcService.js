@@ -21,7 +21,11 @@ function generateNPC(location, occupation) {
         location,
         disposition: random(dispositions),
         alive: true,
-        isMurderer: false
+        isMurderer: false,
+        isWitness: false,
+        witnessClaim: null,
+        nightsSpent: 0,
+        toldStories: []
     }
 }
 
