@@ -1,0 +1,154 @@
+:root{
+  --bg:#151210;
+  --panel:#1c1815;
+  --panel-2:#221d19;
+  --line:#3a332c;
+  --paper:#e9e0c9;
+  --paper-dim:#a99f88;
+  --rust:#8b3a2a;
+  --rust-bright:#b1543d;
+  --amber:#c9a24b;
+  --dead:#5b5048;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  background-image:
+    radial-gradient(ellipse at top, rgba(201,162,75,0.06), transparent 60%);
+  color:var(--paper);
+  font-family:'Lora', serif;
+  min-height:100vh;
+}
+h1,h2,h3,.mono{
+  font-family:'Special Elite', monospace;
+  letter-spacing:.02em;
+}
+#app{max-width:1180px;margin:0 auto;padding:28px 20px 60px;}
+
+/* ---------- Start / Intro ---------- */
+.center-screen{
+  min-height:80vh;display:flex;align-items:center;justify-content:center;flex-direction:column;
+  text-align:center;
+}
+.stamp{
+  font-family:'Special Elite', monospace;
+  color:var(--rust-bright);
+  border:2px solid var(--rust-bright);
+  padding:4px 14px;
+  display:inline-block;
+  transform:rotate(-3deg);
+  margin-bottom:18px;
+  font-size:.85rem;
+  letter-spacing:.15em;
+}
+.center-screen h1{font-size:2.4rem;color:var(--paper);margin:0 0 8px;}
+.center-screen p.sub{color:var(--paper-dim);max-width:480px;margin:0 0 28px;}
+input.name-input{
+  background:var(--panel-2);
+  border:1px solid var(--line);
+  color:var(--paper);
+  font-family:'Lora',serif;
+  font-size:1rem;
+  padding:12px 14px;
+  width:280px;
+  margin-bottom:16px;
+}
+input.name-input:focus{outline:1px solid var(--amber);border-color:var(--amber);}
+button{
+  font-family:'Special Elite', monospace;
+  background:var(--rust);
+  color:var(--paper);
+  border:none;
+  padding:12px 22px;
+  cursor:pointer;
+  font-size:.9rem;
+  letter-spacing:.04em;
+  transition:background .15s ease;
+}
+button:hover:not(:disabled){background:var(--rust-bright);}
+button:disabled{background:var(--dead);color:var(--paper-dim);cursor:not-allowed;}
+button.ghost{background:transparent;border:1px solid var(--line);color:var(--paper-dim);}
+button.ghost:hover:not(:disabled){border-color:var(--amber);color:var(--amber);}
+
+.intro-text{
+  max-width:640px;white-space:pre-line;text-align:left;line-height:1.75;
+  color:var(--paper-dim);font-style:italic;margin-bottom:28px;
+}
+
+/* ---------- Game layout ---------- */
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px;flex-wrap:wrap;gap:10px;
+}
+.topbar h1{font-size:1.3rem;margin:0;color:var(--amber);}
+.stats{display:flex;gap:18px;color:var(--paper-dim);font-size:.85rem;}
+.stats b{color:var(--paper);}
+.layout{display:grid;grid-template-columns:230px 1fr 260px;gap:18px;}
+@media (max-width:900px){.layout{grid-template-columns:1fr;}}
+
+.panel{background:var(--panel);border:1px solid var(--line);padding:16px;}
+.panel h2{font-size:.95rem;color:var(--amber);margin:0 0 12px;text-transform:none;}
+
+.loc-btn{
+  display:block;width:100%;text-align:left;background:var(--panel-2);
+  border:1px solid var(--line);color:var(--paper);margin-bottom:8px;
+  padding:10px 12px;font-family:'Lora',serif;font-size:.9rem;
+}
+.loc-btn:hover:not(:disabled){border-color:var(--amber);}
+.loc-btn.active{border-color:var(--rust-bright);color:var(--amber);}
+.loc-btn .who{display:block;font-size:.75rem;color:var(--paper-dim);margin-top:3px;}
+.loc-btn.dead .who{color:var(--dead);text-decoration:line-through;}
+
+.main-panel{min-height:420px;display:flex;flex-direction:column;}
+.desc{white-space:pre-line;line-height:1.7;color:var(--paper-dim);font-style:italic;margin-bottom:16px;}
+.actions{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.result{
+  background:var(--panel-2);border-left:3px solid var(--amber);
+  padding:12px 14px;font-size:.9rem;line-height:1.6;
+}
+.result .tag{color:var(--amber);font-family:'Special Elite',monospace;font-size:.75rem;display:block;margin-bottom:6px;}
+.result.bad{border-left-color:var(--rust-bright);}
+
+/* Pilha de ações já feitas no local selecionado — a mais recente fica no topo,
+   e o player pode rolar pra consultar o que já fez ali antes. */
+.result-stack{
+  display:flex;flex-direction:column;gap:14px;
+  overflow-y:auto;max-height:420px;padding-right:4px;
+}
+.history-entry{display:flex;flex-direction:column;gap:8px;}
+.history-entry:not(:last-child){border-bottom:1px dashed var(--line);padding-bottom:14px;}
+.history-meta{
+  font-family:'Special Elite',monospace;font-size:.72rem;
+  color:var(--paper-dim);letter-spacing:.03em;
+}
+
+.suspect-row{
+  border-bottom:1px solid var(--line);padding:8px 0;font-size:.85rem;
+}
+.suspect-row:last-child{border-bottom:none;}
+.suspect-row .name{color:var(--paper);}
+.suspect-row .meta{color:var(--paper-dim);font-size:.78rem;display:block;}
+.suspect-row button{margin-top:6px;padding:5px 10px;font-size:.75rem;}
+.suspect-row.dead .name{color:var(--dead);text-decoration:line-through;}
+
+.log{max-height:220px;overflow-y:auto;font-size:.8rem;color:var(--paper-dim);}
+.log-entry{border-bottom:1px solid var(--line);padding:6px 0;}
+.log-entry b{color:var(--paper);}
+
+.banner{
+  text-align:center;padding:18px;margin-bottom:18px;font-family:'Special Elite',monospace;
+  border:1px solid var(--amber);color:var(--amber);
+}
+.banner.solved{border-color:#7a9e6b;color:#a9c99a;}
+.banner.over{border-color:var(--rust-bright);color:var(--rust-bright);}
+
+/* Texto do final (victoryEnding/defeatEnding) exibido dentro do banner */
+.ending-text{
+  margin-top:10px;font-family:'Lora',serif;font-style:italic;
+  white-space:pre-line;font-size:.85rem;line-height:1.6;opacity:.9;
+}
+
+.postgame-actions{display:flex;justify-content:center;margin-bottom:18px;}
+
+.hidden{display:none !important;}
