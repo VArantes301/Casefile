@@ -1,14 +1,12 @@
-// Configuração e estado global da aplicação.
-// Rotas montadas em /api/case e /api/character (ver app.js).
 const API_BASE = '/api';
 
 const state = {
-  screen: 'start',      // start | intro | game
+  screen: 'start',
   playerName: '',
-  case: null,            // resposta de getPublicCase()
+  case: null,
   selectedLocation: null,
-  history: [],           // [{ location, type, data, day }, ...] — todas as ações já feitas, empilhadas por local
-  actionError: null,     // mensagem de erro da última ação tentada (transiente)
+  history: [],
+  actionError: null,
   loading: false,
   error: null
 };

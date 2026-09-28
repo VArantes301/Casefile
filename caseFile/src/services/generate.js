@@ -46,7 +46,6 @@ function shuffle(array) {
     return copy
 }
 
-// Sorteia uma chave de `weights` ({ key: peso }) proporcionalmente ao peso de cada uma.
 function weightedRandom(weights) {
     const entries = Object.entries(weights)
     const total = entries.reduce((sum, [, weight]) => sum + weight, 0)

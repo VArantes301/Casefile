@@ -7,8 +7,6 @@ const crypto = require('node:crypto');
 
 
 function customPlayer(data) {
-    // Antes não havia nenhuma validação: um POST vazio criava um "jogador" sem nome nem
-    // nenhum outro atributo, silenciosamente.
     if (!data || typeof data.name !== 'string' || !data.name.trim()) {
         throw new Error('O campo "name" é obrigatório para criar um personagem.')
     }

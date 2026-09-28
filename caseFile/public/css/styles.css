@@ -110,8 +110,6 @@ button.ghost:hover:not(:disabled){border-color:var(--amber);color:var(--amber);}
 .result .tag{color:var(--amber);font-family:'Special Elite',monospace;font-size:.75rem;display:block;margin-bottom:6px;}
 .result.bad{border-left-color:var(--rust-bright);}
 
-/* Pilha de ações já feitas no local selecionado — a mais recente fica no topo,
-   e o player pode rolar pra consultar o que já fez ali antes. */
 .result-stack{
   display:flex;flex-direction:column;gap:14px;
   overflow-y:auto;max-height:420px;padding-right:4px;
@@ -143,7 +141,6 @@ button.ghost:hover:not(:disabled){border-color:var(--amber);color:var(--amber);}
 .banner.solved{border-color:#7a9e6b;color:#a9c99a;}
 .banner.over{border-color:var(--rust-bright);color:var(--rust-bright);}
 
-/* Texto do final (victoryEnding/defeatEnding) exibido dentro do banner */
 .ending-text{
   margin-top:10px;font-family:'Lora',serif;font-style:italic;
   white-space:pre-line;font-size:.85rem;line-height:1.6;opacity:.9;

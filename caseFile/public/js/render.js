@@ -171,7 +171,6 @@ function renderMainContent(c) {
   const gameOver = c.status !== 'active';
   const suspectDead = !npc.alive;
 
-  // Mais recente primeiro, só as ações feitas nesse local específico.
   const entries = state.history
     .filter(entry => entry.location === state.selectedLocation)
     .slice()
